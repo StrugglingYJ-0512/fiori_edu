@@ -1,0 +1,140 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZYJ1_I_PO_CDS/$metadata">
+        <edmx:Include Namespace="ZYJ1_I_PO_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.redians.com">
+            <Annotations Target="SAP.zyj1_i_poType">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Purchase Order Desc"/>
+                        <PropertyValue Property="TypeNamePlural" String="Purchase Order List"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="PurchaseOrder"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeImageUrl" String="REPLACE_WITH_TYPEIMAGE_PATH"/>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="PurchaseOrder" />
+                            </Record>
+                        </PropertyValue>
+                     </Record>
+                </Annotation>
+                
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>PurchaseOrder</PropertyPath>
+                        <PropertyPath>to_SupplierV2/CompanyName</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PurchaseOrder"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PurchaseOrderOverallStatus"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="to_SupplierV2/CompanyName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TransactionCurrency"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="GrossAmountInTransacCurrency"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="NetAmountInTransactionCurrency"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TaxAmountInTransactionCurrency"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- Header Facet  -->
+                <Annotation Term="UI.DataPoint" Qualifier="qua_yj01">                  
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="PurchaseOrder"/> 
+                        <!-- 이름은 무조건 label 이 아니다. title도 될 수 있따.  -->
+                        <PropertyValue Property="Value" Path="PurchaseOrder"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_yj02">                  
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="PurchaseOrderOverallStatus"/> 
+                        <!-- 이름은 무조건 label 이 아니다. title도 될 수 있따.  -->
+                        <PropertyValue Property="Value" Path="to_OverallStatus/PurchaseOrderOverallStatus"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <!-- collection 은 모아놓는 곳 -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_yj01"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_yj02"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- Header Facet  -->
+
+                <!-- Filed Group -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_yj01">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PurchaseOrder"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="to_SupplierV2/CompanyName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="section"/>
+                            <PropertyValue Property="ID" String="purchaseOrder"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_yj01"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="section02"/>
+                            <PropertyValue Property="ID" String="purchaseOrder02"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_yj02"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_yj02">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="GrossAmountInTransacCurrency"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

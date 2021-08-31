@@ -1,0 +1,284 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZYJ_I_PROD_REVIEW_01_CDS/$metadata">
+        <edmx:Include Namespace="ZYJ_I_PROD_REVIEW_01_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.readians.yj">
+            <Annotations Target="SAP.zyj_i_prod_review_01Type">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Name</PropertyPath>
+                        <PropertyPath>SupplierName</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="MainCategoryName"/>
+                            <PropertyValue Property="Value" Path="MainCategoryName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="SubCategoryName"/>
+                            <PropertyValue Property="Value" Path="SubCategoryName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="CurrencyCode"/>
+                            <PropertyValue Property="Value" Path="CurrencyCode"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Price"/>
+                            <PropertyValue Property="Value" Path="Price"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="QuantityUnit"/>
+                            <PropertyValue Property="Value" Path="QuantityUnit"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="StockAvailability"/>
+                            <PropertyValue Property="Value" Path="StockAvailability"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="StockQuantity"/>
+                            <PropertyValue Property="Value" Path="StockQuantity"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- Header Facet  -->
+                <!-- Step.1 : Data Point  ; 화면을 띄우기 위한 물밑작업? -->
+                <!--                    실젤 화면을 띄우는 공간이 아닌, 데이터를 가공하는 공간.  -->
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_01">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="CurrencyCode"/>
+                        <PropertyValue Property="Value" Path="CurrencyCode"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_02">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="QuantityUnit"/>
+                        <PropertyValue Property="Value" Path="QuantityUnit"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_03">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="Description"/>
+                        <PropertyValue Property="Value" Path="Description"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_04">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="Price"/>
+                        <PropertyValue Property="Value" Path="Price"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_05">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="StockQuantity"/>
+                        <PropertyValue Property="Value" Path="StockQuantity"/>
+                    </Record>
+                </Annotation>
+
+                <!-- Collection - full -->
+                <!-- Setep2 : Facet ; 실제 화면을 구성 ( facet을 이용해서 화면을 띄울꺼야) -->
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+
+                                <Collection>
+                                    <!-- reference facet 2개가 묶였다.  -->
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_01"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_04"/>
+                                    </Record>
+                                </Collection>
+
+                            </PropertyValue>
+                            <!-- 이 밑은 따로 이름 뭍일 게 없으므로 지운다.  -->
+                            <!-- <PropertyValue Property="Label" String=""/>
+                            <PropertyValue Property="ID" String=""/> -->
+                        </Record>
+
+
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_02"/>
+                                    </Record> 
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_05"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            <PropertyValue Property="Label" String=""/>
+                            <PropertyValue Property="ID" String=""/>
+                        </Record>
+
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_03"/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- Object Page 의 Header  -->
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Product"/>
+                        <PropertyValue Property="TypeNamePlural" String="Product List "/>
+                        <PropertyValue Property="Title">
+                            <!-- title을 쓸거야. 라고 윗줄에 선언하고 -->
+                            <!-- title의 어떤 값을 집어 넣을 건지 Record에서 선언한다. Path로 지정하여 데이터가져옴! -->
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                             <!-- description을 쓸거야. 라고 윗줄에 선언하고 -->
+                            <!-- description의 어떤 값을 집어 넣을 건지 Record에서 선언한다. Path로 지정하여 데이터가져옴! -->
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Description"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeImageUrl" Path="ImageUrl"/>
+                    </Record>
+                </Annotation>
+
+                <!-- Object Page > Section  -->
+                <!-- 1. Product Information -->
+                <!--  step 1. 띄울 data를 가져온다.  -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_section_01">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="MainCategoryName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="SubCategoryName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="StockAvailability"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Stock Quantity"/>
+                                    <PropertyValue Property="Value" Path="StockQuantity"/>
+                                </Record>
+                                
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!--  step 2. facet 으로 공간을 띄워준다.  -->
+                <!--  facet은 단순히 공간을 열어준다.  -->
+                <!--     !!!!!!!!!!   UI 를 보여주는 공간!!!!!!!!!!!!!  -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Product Information"/>
+                            <PropertyValue Property="ID" String="yj_01"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_01"/>
+                        </Record>
+                        <!-- Object Page의 2번째 Row의 facet  -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Product Information2"/>
+                            <PropertyValue Property="ID" String="yj_section_02"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_02"/>
+                        </Record>
+                        
+
+                        <!-- 이 ReferenceFacet 위에 Collection Facet을 씌워줘야한다!! -->
+                        <!-- !!!ReferenceFacet 이다!!! -->
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Product Information"/>
+                                        <PropertyValue Property="ID" String="yj_04"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_01"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Company Info"/>
+                                        <PropertyValue Property="ID" String="yj_section_03"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_03"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            <PropertyValue Property="Label" String="Companyinfo"/>
+                            <PropertyValue Property="ID" String=""/>
+                        </Record>
+
+
+                    </Collection>
+                </Annotation>
+
+                <!-- Object Page > Section 의 2번째 줄 -->
+                <!--  실제 데이터를 가져온다.  -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_section_02">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Unit"/>
+                                    <PropertyValue Property="Value" Path="DimensionUnit"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionDepth"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionHeight"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionWidth"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- Object Page > Section 의 3번째 줄 의 오른쪾!!!-->
+                <!--  실제 데이터를 가져온다.  -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_section_03">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="SupplierName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="to_Supplier/Phone"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="to_Supplier/Email"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="to_Supplier/FormattedAddress"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+
+
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
