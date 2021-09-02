@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZYJ_I_SOH_02_CDS" xml:lang="ko" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="zyj_i_soh_02Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Salesorderuuid"/>
+                </Key>
+                <Property Name="Salesorderuuid" Type="Edm.Guid" Nullable="false" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key"/>
+                <Property Name="Salesorder" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number"/>
+                <Property Name="Businesspartner" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Business Partner ID" sap:quickinfo="EPM: Business Partner ID"/>
+                <Property Name="Overallstatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Overall Status" sap:quickinfo="EPM: Sales Order Overall Status"/>
+                <Property Name="CreaDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="타임스탬프" sap:quickinfo="긴 형식의 UTC 타임스탬프(YYYYMMDDhhmmssmmmuuun)"/>
+                <Property Name="CreaUname" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="사용자이름"/>
+                <Property Name="LchgDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="타임스탬프" sap:quickinfo="긴 형식의 UTC 타임스탬프(YYYYMMDDhhmmssmmmuuun)"/>
+                <Property Name="LchgUname" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="사용자이름"/>
+                <NavigationProperty Name="to_Item" Relationship="ZYJ_I_SOH_02_CDS.assoc_588FB151CEB5EF81A32A813E6DE28772" FromRole="FromRole_assoc_588FB151CEB5EF81A32A813E6DE28772" ToRole="ToRole_assoc_588FB151CEB5EF81A32A813E6DE28772"/>
+            </EntityType>
+            <EntityType Name="zyj_i_soi_02Type" sap:semantics="aggregate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Salesorderitemuuid" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key"/>
+                <Property Name="Salesorderuuid" Type="Edm.Guid" sap:aggregation-role="dimension" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key"/>
+                <Property Name="Salesorderitem" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Item Position" sap:quickinfo="EPM: Sales Order Item Position"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:label="Product ID" sap:quickinfo="EPM: Product ID"/>
+                <Property Name="Grossamount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="dimension" sap:label="Gross Amount" sap:quickinfo="EPM: Total Gross Amount"/>
+                <Property Name="Currencycode" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+                <Property Name="Quantity" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="INT4" sap:quickinfo="4바이트 부호 있는 정수" sap:filterable="false"/>
+                <Property Name="CreaDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:aggregation-role="dimension" sap:label="타임스탬프" sap:quickinfo="긴 형식의 UTC 타임스탬프(YYYYMMDDhhmmssmmmuuun)"/>
+                <Property Name="CreaUname" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="사용자이름"/>
+                <Property Name="LchgDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:aggregation-role="dimension" sap:label="타임스탬프" sap:quickinfo="긴 형식의 UTC 타임스탬프(YYYYMMDDhhmmssmmmuuun)"/>
+                <Property Name="LchgUname" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="사용자이름"/>
+            </EntityType>
+            <Association Name="assoc_588FB151CEB5EF81A32A813E6DE28772" sap:content-version="1">
+                <End Type="ZYJ_I_SOH_02_CDS.zyj_i_soh_02Type" Multiplicity="1" Role="FromRole_assoc_588FB151CEB5EF81A32A813E6DE28772"/>
+                <End Type="ZYJ_I_SOH_02_CDS.zyj_i_soi_02Type" Multiplicity="*" Role="ToRole_assoc_588FB151CEB5EF81A32A813E6DE28772"/>
+            </Association>
+            <EntityContainer Name="ZYJ_I_SOH_02_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="zyj_i_soh_02" EntityType="ZYJ_I_SOH_02_CDS.zyj_i_soh_02Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zyj_i_soi_02" EntityType="ZYJ_I_SOH_02_CDS.zyj_i_soi_02Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_588FB151CEB5EF81A32A813E6DE28772" Association="ZYJ_I_SOH_02_CDS.assoc_588FB151CEB5EF81A32A813E6DE28772" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_soh_02" Role="FromRole_assoc_588FB151CEB5EF81A32A813E6DE28772"/>
+                    <End EntitySet="zyj_i_soi_02" Role="ToRole_assoc_588FB151CEB5EF81A32A813E6DE28772"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZYJ_I_SOH_02_CDS.ZYJ_I_SOH_02_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_SOH_02_CDS.ZYJ_I_SOH_02_CDS_Entities/zyj_i_soi_02" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>Quantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZYJ_I_SOH_02_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZYJ_I_SOH_02_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZYJ_I_TATAL_0901_CDS" xml:lang="ko" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SEPMRA_I_ProductMainCategoryType" sap:label="Category" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MainProductCategory"/>
+                </Key>
+                <Property Name="MainProductCategory" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Category"/>
+            </EntityType>
+            <EntityType Name="SEPM_C_RAMP_SupplierType" sap:label="Supplier" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="Name" sap:label="Supplier" sap:quickinfo="Supplier ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:semantics="currency-code"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="80" sap:display-format="UpperCase" sap:label="Supplier Name"/>
+                <Property Name="Phone" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="Email" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="WebAddress" Type="Edm.String" sap:label="URI" sap:quickinfo="EPM: Web Address"/>
+                <Property Name="FormattedAddress" Type="Edm.String" MaxLength="176" sap:label="Address" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FormattedContactName" Type="Edm.String" MaxLength="81" sap:label="Full Name" sap:quickinfo="EPM: Full Name"/>
+                <Property Name="ContactPhone1" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="ContactPhone2" Type="Edm.String" MaxLength="30" sap:label="Fax" sap:quickinfo="EPM: Fax Number" sap:semantics="tel"/>
+                <Property Name="ContactEmail" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+            </EntityType>
+            <EntityType Name="zyj_i_tatal_0901Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="Name" sap:label="Product" sap:quickinfo="Product ID"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="255" sap:label="Name" sap:quickinfo="Product Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="255" sap:label="Description" sap:quickinfo="Product Description"/>
+                <Property Name="SubCategoryId" Type="Edm.String" MaxLength="40" sap:text="SubCategoryName" sap:label="Category" sap:quickinfo="Product Sub-Category"/>
+                <Property Name="SubCategoryName" Type="Edm.String" MaxLength="40" sap:label="Category" sap:quickinfo="Product Sub-Category"/>
+                <Property Name="MainCategoryId" Type="Edm.String" MaxLength="40" sap:text="MainCategoryName" sap:label="Main Category" sap:value-list="fixed-values"/>
+                <Property Name="MainCategoryName" Type="Edm.String" MaxLength="40" sap:label="Main Category" sap:value-list="fixed-values"/>
+                <Property Name="SupplierId" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="SupplierName" sap:label="Supplier" sap:quickinfo="Supplier ID" sap:value-list="standard"/>
+                <Property Name="SupplierName" Type="Edm.String" MaxLength="80" sap:display-format="UpperCase" sap:label="Supplier Name"/>
+                <Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Price per Unit" sap:quickinfo="Fiori Reference Apps: Product Unit Price"/>
+                <Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:semantics="currency-code"/>
+                <Property Name="DimensionHeight" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="QuantityUnit" sap:label="Height" sap:quickinfo="EPM: Height"/>
+                <Property Name="DimensionWidth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="QuantityUnit" sap:label="Width" sap:quickinfo="EPM: Width"/>
+                <Property Name="DimensionDepth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="QuantityUnit" sap:label="Depth" sap:quickinfo="EPM: Depth"/>
+                <Property Name="DimensionUnit" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ImageUrl" Type="Edm.String" MaxLength="255" sap:label="Image" sap:quickinfo="Image of the product"/>
+                <Property Name="QuantityUnit" Type="Edm.String" MaxLength="3" sap:label="Base Unit" sap:quickinfo="Base Unit of Measurement for Product Quantities" sap:semantics="unit-of-measure"/>
+                <Property Name="MeasureUnit" Type="Edm.String" MaxLength="10"/>
+                <Property Name="StockQuantity" Type="Edm.Int32"/>
+                <Property Name="StockAvailability" Type="Edm.Byte" sap:label="Availability" sap:quickinfo="Classification of max. available quantity in stock"/>
+                <Property Name="AverageRating" Type="Edm.Decimal" Precision="4" Scale="2" sap:label="Average Rating" sap:quickinfo="EPM: Review Rating Average"/>
+                <Property Name="RatingCount" Type="Edm.Int32" sap:label="Number of Reviews" sap:quickinfo="EPM: Number of Reviews"/>
+                <Property Name="WeightMeasure" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="QuantityUnit" sap:label="Weight" sap:quickinfo="EPM: Weight Measure"/>
+                <Property Name="WeightUnit" Type="Edm.String" MaxLength="10"/>
+                <Property Name="LastModified" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Changed"/>
+                <NavigationProperty Name="to_Supplier" Relationship="ZYJ_I_TATAL_0901_CDS.assoc_5DB0696071F594711BA8B8ACD3DA1C07" FromRole="FromRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07" ToRole="ToRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07"/>
+            </EntityType>
+            <Association Name="assoc_5DB0696071F594711BA8B8ACD3DA1C07" sap:content-version="1">
+                <End Type="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type" Multiplicity="1" Role="FromRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07"/>
+                <End Type="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType" Multiplicity="1" Role="ToRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07">
+                        <PropertyRef Name="Id"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07">
+                        <PropertyRef Name="SupplierId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZYJ_I_TATAL_0901_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SEPMRA_I_ProductMainCategory" EntityType="ZYJ_I_TATAL_0901_CDS.SEPMRA_I_ProductMainCategoryType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPM_C_RAMP_Supplier" EntityType="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="zyj_i_tatal_0901" EntityType="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type" sap:searchable="true" sap:content-version="1"/>
+                <AssociationSet Name="assoc_5DB0696071F594711BA8B8ACD3DA1C07" Association="ZYJ_I_TATAL_0901_CDS.assoc_5DB0696071F594711BA8B8ACD3DA1C07" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_tatal_0901" Role="FromRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07"/>
+                    <End EntitySet="SEPM_C_RAMP_Supplier" Role="ToRole_assoc_5DB0696071F594711BA8B8ACD3DA1C07"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/MainCategoryId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Main Category"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_I_ProductMainCategory"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MainCategoryId"/>
+                                    <PropertyValue Property="ValueListProperty" String="MainProductCategory"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/MainCategoryName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Main Category"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_I_ProductMainCategory"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MainCategoryName"/>
+                                    <PropertyValue Property="ValueListProperty" String="MainProductCategory"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/SupplierId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Supplier"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_C_RAMP_Supplier"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="SupplierId"/>
+                                    <PropertyValue Property="ValueListProperty" String="Id"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.ZYJ_I_TATAL_0901_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.ZYJ_I_TATAL_0901_CDS_Entities/SEPM_C_RAMP_Supplier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="WebAddress"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>WebAddress</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZYJ_I_TATAL_0901_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZYJ_I_TATAL_0901_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

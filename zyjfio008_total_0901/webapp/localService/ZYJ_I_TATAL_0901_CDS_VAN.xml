@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../../sap/zyj_i_tatal_0901_cds/$metadata">
+        <edmx:Include Namespace="ZYJ_I_TATAL_0901_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="zyj_i_tatal_0901_cds_van.v1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPMRA_I_ProductMainCategoryType">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Main Category"/>
+                        <PropertyValue Property="TypeNamePlural" String="Main Categories"/>
+                        <PropertyValue Property="TypeImageUrl" String="sap-icon://folder"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="MainProductCategory"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType/Email">
+                <Annotation Term="Communication.IsEmailAddress"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType/ContactEmail">
+                <Annotation Term="Communication.IsEmailAddress"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType/Id">
+                <Annotation Term="Common.SemanticObject" String="EPMSupplier"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType/Phone">
+                <Annotation Term="Communication.IsPhoneNumber"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType/ContactPhone1">
+                <Annotation Term="Communication.IsPhoneNumber"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType/ContactPhone2">
+                <Annotation Term="Communication.IsPhoneNumber"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.SEPM_C_RAMP_SupplierType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Id"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Id"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Email"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Phone"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="WebAddress"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Communication.Contact">
+                    <Record>
+                        <PropertyValue Property="fn" Path="Name"/>
+                        <PropertyValue Property="adr">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="type" EnumMember="Communication.ContactInformationType/preferred"/>
+                                    <PropertyValue Property="label" Path="FormattedAddress"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="tel">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="type" EnumMember="Communication.PhoneType/work"/>
+                                    <PropertyValue Property="uri" Path="ContactPhone1"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="type" EnumMember="Communication.PhoneType/fax"/>
+                                    <PropertyValue Property="uri" Path="ContactPhone2"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="type" EnumMember="Communication.PhoneType/work Communication.PhoneType/preferred"/>
+                                    <PropertyValue Property="uri" Path="Phone"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="email">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="type" EnumMember="Communication.ContactInformationType/work Communication.ContactInformationType/preferred"/>
+                                    <PropertyValue Property="address" Path="ContactEmail"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="type" EnumMember="Communication.ContactInformationType/work Communication.ContactInformationType/preferred"/>
+                                    <PropertyValue Property="address" Path="Email"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Communication.Address">
+                    <Record>
+                        <PropertyValue Property="type" EnumMember="Communication.ContactInformationType/preferred"/>
+                        <PropertyValue Property="label" Path="FormattedAddress"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/Id">
+                <Annotation Term="Common.SemanticObject" String="EPMProduct"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/SupplierId">
+                <Annotation Term="Common.SemanticObject" String="EPMSupplier"/>
+                <Annotation Term="Common.SemanticObjectMapping">
+                    <Collection>
+                        <Record>
+                            <PropertyValue Property="LocalProperty" PropertyPath="SupplierId"/>
+                            <PropertyValue Property="SemanticObjectProperty" String="Id"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/MainCategoryId">
+                <Annotation Term="Common.Text" Path="MainCategoryName">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextSeparate"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type/MainCategoryName"/>
+            <Annotations Target="ZYJ_I_TATAL_0901_CDS.zyj_i_tatal_0901Type">
+                <Annotation Term="Communication.Contact">
+                    <Record>
+                        <PropertyValue Property="fn" Path="SupplierName"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

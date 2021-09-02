@@ -1,0 +1,71 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZYJ_I_SOH_02_CDS/$metadata">
+        <edmx:Include Namespace="ZYJ_I_SOH_02_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.readians.com">
+            <Annotations Target="SAP.zyj_i_soh_02Type">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Salesorder"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- facet -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <!-- chart -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="chart_Test"/>
+                            <PropertyValue Property="ID" String="id_chart01"/>
+                            <PropertyValue Property="Target" AnnotationPath="to_Item/@UI.Chart"/>
+                        </Record>
+                        <!-- Lineitem -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Line Item"/>
+                            <PropertyValue Property="ID" String="id_chart02"/>
+                            <PropertyValue Property="Target" AnnotationPath="to_Item/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                
+            </Annotations>
+
+            <!-- chart -->
+            <!-- data -->
+            <Annotations Target="SAP.zyj_i_soi_02Type">
+                <!-- chart -->
+                <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Bar"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>Product</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>Quantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- Line Item -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>        
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

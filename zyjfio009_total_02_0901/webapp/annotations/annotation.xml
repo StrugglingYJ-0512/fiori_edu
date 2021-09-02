@@ -1,0 +1,213 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZYJ_I_TATAL_0901_CDS/$metadata">
+        <edmx:Include Namespace="ZYJ_I_TATAL_0901_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.readians.yj">
+            <Annotations Target="SAP.zyj_i_tatal_0901Type">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MainCategoryName"/>
+                            <PropertyValue Property="Criticality" Path="StockAvailability"/>
+                            <PropertyValue Property="CriticalityRepresentation" EnumMember="UI.CriticalityRepresentationType/WithIcon"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="SubCategoryName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CurrencyCode"/>
+                            <PropertyValue Property="Criticality" Path="CurrencyCode"/>
+                            <PropertyValue Property="CriticalityRepresentation" EnumMember="UI.CriticalityRepresentationType/WithIcon"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Price"/>
+                            <PropertyValue Property="Criticality" Path="RatingCount"/>
+                            <PropertyValue Property="CriticalityRepresentation" EnumMember="UI.CriticalityRepresentationType/WithIcon"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="QuantityUnit"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StockAvailability"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StockQuantity"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="Availity"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qau_rating_01"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- object page -->
+                <!-- facet -->
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_01"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_02"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            <PropertyValue Property="Label" String=""/>
+                            <PropertyValue Property="ID" String=""/>
+                        </Record>
+
+
+
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_header_03"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- object Page -->
+                <!--  data -->
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_01">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="CurrencyCode"/>
+                        <PropertyValue Property="Value" Path="CurrencyCode"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_02">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="Price"/>
+                        <PropertyValue Property="Value" Path="Price"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_header_03">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="Description"/>
+                        <PropertyValue Property="Value" Path="Description"/>
+                    </Record>
+                </Annotation>
+
+                <!-- object Page header info -->
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Product"/>
+                        <PropertyValue Property="TypeNamePlural" String="Product List"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="SubCategoryName"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Description"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeImageUrl" Path="ImageUrl"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_section_01">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="MainCategoryName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Id"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionUnit"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CurrencyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- object page_  section -->
+                <!-- facets -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Product Info"/>
+                            <PropertyValue Property="ID" String="id_section_01"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_01"/>
+                        </Record>
+
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Company info"/>
+                                        <PropertyValue Property="ID" String="id_section_02"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_02"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Product Info"/>
+                                        <PropertyValue Property="ID" String="id_section_03"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_section_01"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            <PropertyValue Property="Label" String=""/>
+                            <PropertyValue Property="ID" String=""/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+                <!-- section -->
+                <!-- data -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_section_02">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionDepth"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionHeight"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CurrencyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qau_rating_01">
+                    <Record>
+                        <PropertyValue Property="Value" Path="StockAvailability"/>
+                        <PropertyValue Property="TargetValue" Int="5"/>
+                        <PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
