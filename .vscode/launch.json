@@ -1312,6 +1312,63 @@
             "internalConsoleOptions": "neverOpen",
             "port": 9229,
             "env": {}
+        },
+        {
+            "name": "Start zyjfio_017_0903 Mock",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/zyjfio_017_0903",
+            "runtimeExecutable": "npm",
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            },
+            "runtimeArgs": [
+                "run-script",
+                "start-mock"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229,
+            "env": {}
+        },
+        {
+            "name": "Start zyjfio_017_0903 Mock with UI5 Version",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/zyjfio_017_0903",
+            "runtimeExecutable": "npm",
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            },
+            "runtimeArgs": [
+                "run-script",
+                "start-mock"
+            ],
+            "args": [
+                "--",
+                "${input:UI5Version}"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        },
+        {
+            "name": "Start zyjfio_017_0903 Local",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/zyjfio_017_0903",
+            "runtimeExecutable": "npm",
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            },
+            "runtimeArgs": [
+                "run-script",
+                "start-local"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229,
+            "env": {}
         }
     ],
     "compounds": [],
