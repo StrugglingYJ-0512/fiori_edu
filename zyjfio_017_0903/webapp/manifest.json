@@ -96,7 +96,6 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "uri": "i18n/ObjectPage/Z_SEPMRA_SO_SALESORDERANALYSIS/i18n.properties"
             },
-            
             "": {
                 "dataSource": "mainService",
                 "preload": true,
@@ -111,7 +110,11 @@
             }
         },
         "extends": {
-            "extensions": {}
+            "extensions": {
+                "sap.ui.viewExtensions": {
+                    "sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage": {}
+                }
+            }
         },
         "contentDensities": {
             "compact": true,
@@ -141,7 +144,10 @@
                         "tableSettings": {
                             "multiSelect": false
                         },
-                        "keyPerformanceIndicators": {}
+                        "keyPerformanceIndicators": {},
+                        "chartSettings": {
+                            "showDataLabel": true
+                        }
                     }
                 },
                 "pages": {
@@ -151,7 +157,6 @@
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage"
                         }
-                        
                     }
                 }
             }
