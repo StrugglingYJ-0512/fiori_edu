@@ -1,0 +1,264 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZYJ_I_PRODUCT_02_CDS/$metadata">
+        <edmx:Include Namespace="ZYJ_I_PRODUCT_02_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+
+            <!-- filter bar -->
+            <!-- Target : zyj_i_product_02Type -->
+            <Annotations Target="SAP.zyj_i_product_02Type">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Product</PropertyPath>
+                        <PropertyPath>ProductCategory</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <!-- UI.Chart -->
+                <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="Products"/>
+                        <PropertyValue Property="Description" String="Products"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>Product</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>ConvertedGrossAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- UI.LineItem -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ProductCategory"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Supplier"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="convertedCurrency"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ConvertedGrossAmount"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- UI.DataPoint -->
+                <Annotation Term="UI.DataPoint" Qualifier="qua_dataPoint_01">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Value" Path="ProductType"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="qua_dataPoint_02">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Value" Path="Supplier"/>
+                    </Record>
+                </Annotation>
+                <!-- UI.HeaderFacets -->
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_dataPoint_01"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_dataPoint_02"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_fieldGroup_01"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- UI.FieldGroup -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_fieldGroup_01">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Weight"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="WeightUnit"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DimensionUnit"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Height"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Depth"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- UI.Facets -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Product Information"/>
+                            <PropertyValue Property="ID" String="id_fieldGroup_01"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#qua_fieldGroup_01"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Company Information"/>
+                            <PropertyValue Property="ID" String="id_fieldGroup_02"/>
+                            <PropertyValue Property="Target" AnnotationPath="to_Supplier/@UI.FieldGroup#qua_fieldGroup_02"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Company Information"/>
+                            <PropertyValue Property="ID" String="id_fieldGroup_03"/>
+                            <PropertyValue Property="Target" AnnotationPath="to_ProductReviewPostTP/@UI.LineItem"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Stock Chart"/>
+                            <PropertyValue Property="ID" String="id_fieldGroup_04"/>
+                            <PropertyValue Property="Target" AnnotationPath="to_Stock/@UI.Chart#qua_visualChart_01"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
+
+            <!-- Target : SEPMRA_I_StockType  -->
+            <Annotations Target="SAP.SEPMRA_I_StockType">
+                <!-- Visual Filter Bar -->
+                <!-- step 01 -->
+                <Annotation Term="UI.Chart" Qualifier="qua_visualChart_01">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title" String="Products"/>
+                        <PropertyValue Property="Description" String="Products"/>
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>Product</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>Quantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- step 02 -->
+                <Annotation Term="UI.PresentationVariant" Qualifier="qua_present_01">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@UI.Chart#qua_visualChart_01</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <!-- step 03 -->
+            <Annotations Target="SAP.zyj_i_product_02Type/Product">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_I_Stock"/>
+                        <PropertyValue Property="PresentationVariantQualifier" String="qua_present_01"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Product"/>
+                                    <PropertyValue Property="ValueListProperty" String="Product"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- Target : SEPMRA_I_Supplier -->
+            <Annotations Target="SAP.SEPMRA_I_SupplierType">
+                <!-- UI.FieldGroup -->
+                <Annotation Term="UI.FieldGroup" Qualifier="qua_fieldGroup_02">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Supplier"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CompanyName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="EmailAddress"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PhoneNumber"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="FaxNumber"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <!-- UI.Facets -->
+            </Annotations>
+
+            <!-- objectPage -->
+            <!-- Target :  SEPMRA_I_ProductReviewPostTP -->
+            <Annotations Target="SAP.SEPMRA_I_ProductReviewPostTPType">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReviewPostTitle"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReviewPostText"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="Rating"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#qua_rating_01"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ContactPerson"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReviewDate"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <!-- rating -->
+                <!-- UI.DataPoint -->
+                <Annotation Term="UI.DataPoint" Qualifier="qua_rating_01">
+                    <Record>
+                        <PropertyValue Property="Value" Path="ReviewRatingValue"/>
+                        <PropertyValue Property="TargetValue" Int="5"/>
+                        <PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

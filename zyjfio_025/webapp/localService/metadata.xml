@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZYJ_I_PUROD_01_CDS" xml:lang="ko" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="I_CurrencyType" sap:label="통화" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Currency"/>
+                </Key>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="Currency_Text" sap:label="통화" sap:quickinfo="통화 키" sap:semantics="currency-code"/>
+                <Property Name="Currency_Text" Type="Edm.String" MaxLength="40" sap:label="내역" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Decimals" Type="Edm.Byte" sap:label="소수 자릿수"/>
+                <Property Name="CurrencyISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO 코드" sap:quickinfo="ISO 통화 코드"/>
+                <Property Name="AlternativeCurrencyKey" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="대체 키"/>
+                <Property Name="IsPrimaryCurrencyForISOCrcy" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="기본" sap:quickinfo="ISO 코드에 대한 기본 SAP 통화 코드"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_POAPV_AnalyticsType" sap:semantics="aggregate" sap:label="Purchase Order" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PurchaseOrder" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Purchase Order" sap:quickinfo="Purchase Order ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:text="SupplierT" sap:label="Supplier" sap:quickinfo="Supplier ID" sap:value-list="standard"/>
+                <Property Name="SupplierT" Type="Edm.String" MaxLength="80" sap:attribute-for="Supplier" sap:display-format="UpperCase" sap:label="Supplier Name"/>
+                <Property Name="Requestor" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:text="RequestorT" sap:label="Requested by" sap:quickinfo="Requestor" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="RequestorT" Type="Edm.String" MaxLength="81" sap:attribute-for="Requestor" sap:label="Name" sap:quickinfo="Full Name"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:text="CurrencyT" sap:label="Currency" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CurrencyT" Type="Edm.String" MaxLength="15" sap:attribute-for="Currency" sap:label="내역"/>
+                <Property Name="NumberOfItems" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Number of Items" sap:filterable="false"/>
+                <Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="measure" sap:unit="Currency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount" sap:filterable="false"/>
+                <Property Name="EarliestDeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="measure" sap:display-format="Date" sap:label="Earliest Delivery Date" sap:filterable="false"/>
+                <Property Name="LatestDeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="measure" sap:display-format="Date" sap:label="Latest Delivery Date" sap:filterable="false"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZYJ_I_PUROD_01_CDS.assoc_0CA726A046D0955F87B8E71A1A25DB53" FromRole="FromRole_assoc_0CA726A046D0955F87B8E71A1A25DB53" ToRole="ToRole_assoc_0CA726A046D0955F87B8E71A1A25DB53"/>
+                <NavigationProperty Name="to_Requestor" Relationship="ZYJ_I_PUROD_01_CDS.assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E" FromRole="FromRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E" ToRole="ToRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E"/>
+                <NavigationProperty Name="to_Supplier" Relationship="ZYJ_I_PUROD_01_CDS.assoc_CA89C968979FCBF2EBA72B84134060A5" FromRole="FromRole_assoc_CA89C968979FCBF2EBA72B84134060A5" ToRole="ToRole_assoc_CA89C968979FCBF2EBA72B84134060A5"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_POAPV_EmployeeType" sap:label="Employee" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Employee"/>
+                </Key>
+                <Property Name="Employee" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="FullName" sap:label="Employee" sap:quickinfo="Employee ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="81" sap:label="Name" sap:quickinfo="Full Name"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:label="First Name" sap:quickinfo="EPM: First Name"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:label="Last Name" sap:quickinfo="EPM: Last Name"/>
+                <Property Name="EmployeePictureURL" Type="Edm.String" MaxLength="255" sap:label="Pic URI" sap:quickinfo="EPM: URL of Product Image"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="MobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Mobile Phone Number" sap:quickinfo="EPM: Mobile Phone Number" sap:semantics="tel"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="OrganizationalUnit" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="OrganizationalUnitName" sap:label="Department" sap:quickinfo="Department ID"/>
+                <Property Name="OrganizationalUnitName" Type="Edm.String" MaxLength="20" sap:attribute-for="OrganizationalUnit" sap:label="Department Name"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_POAPV_ProductType" sap:label="Product" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Product"/>
+                </Key>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="Name" sap:label="Product" sap:quickinfo="Product ID"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="255" sap:attribute-for="Product" sap:label="Name" sap:quickinfo="Product Name"/>
+                <Property Name="ProductPictureURL" Type="Edm.String" MaxLength="255" sap:label="Image" sap:quickinfo="Image of the product"/>
+                <Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="Currency" sap:label="Price" sap:quickinfo="EPM: Product Unit Price"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:text="to_Currency/Currency_Text" sap:label="Currency" sap:value-list="standard" sap:semantics="currency-code"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZYJ_I_PUROD_01_CDS.assoc_30AF82CF9E5094F7C2837BCB7F0E0041" FromRole="FromRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041" ToRole="ToRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_POAPV_PurOrdItemType" sap:label="Purchase Order Item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PurchaseOrder"/>
+                    <PropertyRef Name="PurchaseOrderItem"/>
+                </Key>
+                <Property Name="PurchaseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchase Order" sap:quickinfo="Purchase Order ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PurchaseOrderItem" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Item" sap:quickinfo="Purchase Order Item Position" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="Currency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:text="to_Currency/Currency_Text" sap:label="Currency" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="Quantity" Type="Edm.Int32" sap:unit="QuantityUnit" sap:label="Quantity" sap:quickinfo="Quantity, rounded to the next whole number"/>
+                <Property Name="QuantityUnit" Type="Edm.String" MaxLength="3" sap:text="to_QuantityUnit/UnitOfMeasure_Text" sap:label="Quantity Unit" sap:creatable="false" sap:updatable="false" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Delivery Date"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="10" sap:text="to_Product/Name" sap:label="Product" sap:quickinfo="Product ID" sap:value-list="standard"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZYJ_I_PUROD_01_CDS.assoc_95890A28CFBE450FDB51C6C427A12F51" FromRole="FromRole_assoc_95890A28CFBE450FDB51C6C427A12F51" ToRole="ToRole_assoc_95890A28CFBE450FDB51C6C427A12F51"/>
+                <NavigationProperty Name="to_Product" Relationship="ZYJ_I_PUROD_01_CDS.assoc_F4AD7F924555664C2BDBE98124BC5935" FromRole="FromRole_assoc_F4AD7F924555664C2BDBE98124BC5935" ToRole="ToRole_assoc_F4AD7F924555664C2BDBE98124BC5935"/>
+                <NavigationProperty Name="to_QuantityUnit" Relationship="ZYJ_I_PUROD_01_CDS.assoc_CE1CD91D545272C31AD273518CE58D6D" FromRole="FromRole_assoc_CE1CD91D545272C31AD273518CE58D6D" ToRole="ToRole_assoc_CE1CD91D545272C31AD273518CE58D6D"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_POAPV_SupplierType" sap:label="Supplier" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="CompanyName" sap:label="Supplier" sap:quickinfo="Supplier ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:display-format="UpperCase" sap:label="Supplier Name"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:label="Fax" sap:quickinfo="EPM: Fax Number" sap:semantics="tel"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="FormattedAddress" Type="Edm.String" MaxLength="176" sap:label="Address" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_I_EmployeeType" sap:label="Employee" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Employee"/>
+                </Key>
+                <Property Name="Employee" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="FullName" sap:label="Employee" sap:quickinfo="Employee ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="EmployeePictureURL" Type="Edm.String" MaxLength="255" sap:label="Pic URI" sap:quickinfo="EPM: URL of Product Image"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:label="First Name" sap:quickinfo="EPM: First Name"/>
+                <Property Name="MiddleName" Type="Edm.String" MaxLength="40" sap:label="Middle Name" sap:quickinfo="EPM: Middle Name"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:label="Last Name" sap:quickinfo="EPM: Last Name"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="81" sap:label="Name" sap:quickinfo="Full Name"/>
+                <Property Name="Initials" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Initials" sap:quickinfo="EPM: Initials"/>
+                <Property Name="GenderCode" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:text="to_GenderCode/GenderCode_Text" sap:label="Gender" sap:quickinfo="EPM: Gender" sap:value-list="standard"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="MobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Mobile Phone Number" sap:quickinfo="EPM: Mobile Phone Number" sap:semantics="tel"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <NavigationProperty Name="to_Company" Relationship="ZYJ_I_PUROD_01_CDS.assoc_9288B7E20CA386A8927F13A150496C3F" FromRole="FromRole_assoc_9288B7E20CA386A8927F13A150496C3F" ToRole="ToRole_assoc_9288B7E20CA386A8927F13A150496C3F"/>
+                <NavigationProperty Name="to_GenderCode" Relationship="ZYJ_I_PUROD_01_CDS.assoc_5689BF800D05B4C270E81DB9929A63AF" FromRole="FromRole_assoc_5689BF800D05B4C270E81DB9929A63AF" ToRole="ToRole_assoc_5689BF800D05B4C270E81DB9929A63AF"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_I_QuantityUnitType" sap:label="Quantity Unit" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UnitOfMeasure"/>
+                </Key>
+                <Property Name="UnitOfMeasure" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="UnitOfMeasure_Text" sap:label="Quantity Unit" sap:semantics="unit-of-measure"/>
+                <Property Name="UnitOfMeasure_Text" Type="Edm.String" MaxLength="6" sap:label="기술" sap:quickinfo="기술포맷으로 된 외부단위 (6문자)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="UnitOfMeasureISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO 코드" sap:quickinfo="단위에 대한 ISO 코드"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_AddressType" sap:label="EPM Demo: Address" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressUUID"/>
+                </Key>
+                <Property Name="AddressUUID" Type="Edm.Guid" Nullable="false" sap:label="Address UUID" sap:quickinfo="EPM: Internal Identifier of Address, universally unique"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="City" sap:quickinfo="EPM: City"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Postal Code" sap:quickinfo="EPM: Postal Code"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Street" sap:quickinfo="EPM: Street"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Building" sap:quickinfo="EPM: Building"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country" sap:quickinfo="EPM: Country Code"/>
+                <Property Name="AddressType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Address Type" sap:quickinfo="EPM: Address Type"/>
+                <Property Name="AddressValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid From" sap:quickinfo="EPM: Start date of Validity"/>
+                <Property Name="AddressValidityEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until" sap:quickinfo="EPM: End date of Validity"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Latitude" sap:quickinfo="EPM: Latitude"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Longitude" sap:quickinfo="EPM: Longitude"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_CompanyType" sap:label="EPM Demo: Company" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyUUID"/>
+                </Key>
+                <Property Name="CompanyUUID" Type="Edm.Guid" Nullable="false" sap:text="CompanyName" sap:label="Node Key" sap:quickinfo="EPM: Generic Node Key"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="AddressUUID" Type="Edm.Guid" sap:label="Address UUID" sap:quickinfo="EPM: Internal Identifier of Address, universally unique" sap:value-list="standard"/>
+                <Property Name="CompanyCurrency" Type="Edm.String" MaxLength="5" sap:text="to_Currency/Currency_Text" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:value-list="standard" sap:semantics="currency-code"/>
+                <NavigationProperty Name="to_Address" Relationship="ZYJ_I_PUROD_01_CDS.assoc_876979E3A61342B6DD9085995885E05D" FromRole="FromRole_assoc_876979E3A61342B6DD9085995885E05D" ToRole="ToRole_assoc_876979E3A61342B6DD9085995885E05D"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZYJ_I_PUROD_01_CDS.assoc_8A0552FC7675047BC96B8232CE0B37C2" FromRole="FromRole_assoc_8A0552FC7675047BC96B8232CE0B37C2" ToRole="ToRole_assoc_8A0552FC7675047BC96B8232CE0B37C2"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_CurrencyType" sap:label="EPM Demo: Currency" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Currency"/>
+                </Key>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="Currency_Text" sap:label="통화" sap:quickinfo="통화 키" sap:semantics="currency-code"/>
+                <Property Name="Currency_Text" Type="Edm.String" MaxLength="15" sap:label="내역" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CurrencyISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO 코드" sap:quickinfo="ISO 통화코드"/>
+            </EntityType>
+            <EntityType Name="SEPM_I_GenderCodeType" sap:label="EPM Demo: Gender Code" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="GenderCode"/>
+                </Key>
+                <Property Name="GenderCode" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:text="GenderCode_Text" sap:label="Gender" sap:quickinfo="EPM: Gender"/>
+                <Property Name="GenderCode_Text" Type="Edm.String" MaxLength="60" sap:label="내역" sap:quickinfo="고정 값 내역" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ZHMHG_I_PurOrdItemType" sap:semantics="aggregate" sap:label="Purchase Order Item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PurchaseOrder" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Purchase Order" sap:quickinfo="Purchase Order ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PurchaseOrderItem" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Item" sap:quickinfo="Purchase Order Item Position" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="measure" sap:unit="Currency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:text="to_Currency/Currency_Text" sap:label="Currency" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="Quantity" Type="Edm.Int32" sap:aggregation-role="measure" sap:unit="QuantityUnit" sap:label="Quantity" sap:quickinfo="Quantity, rounded to the next whole number" sap:filterable="false"/>
+                <Property Name="QuantityUnit" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:text="to_QuantityUnit/UnitOfMeasure_Text" sap:label="Quantity Unit" sap:creatable="false" sap:updatable="false" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Delivery Date"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:text="to_Product/Name" sap:label="Product" sap:quickinfo="Product ID" sap:value-list="standard"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZYJ_I_PUROD_01_CDS.assoc_FD2122934519816E54F0EE4C9143AEB6" FromRole="FromRole_assoc_FD2122934519816E54F0EE4C9143AEB6" ToRole="ToRole_assoc_FD2122934519816E54F0EE4C9143AEB6"/>
+                <NavigationProperty Name="to_Product" Relationship="ZYJ_I_PUROD_01_CDS.assoc_E5FDB1F6C1B96644972C0CC518A12B63" FromRole="FromRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63" ToRole="ToRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63"/>
+                <NavigationProperty Name="to_QuantityUnit" Relationship="ZYJ_I_PUROD_01_CDS.assoc_650E5FD8983BD61C3504277AD384A090" FromRole="FromRole_assoc_650E5FD8983BD61C3504277AD384A090" ToRole="ToRole_assoc_650E5FD8983BD61C3504277AD384A090"/>
+            </EntityType>
+            <EntityType Name="zyj_i_purOd_01Type" sap:semantics="aggregate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PurchaseOrder" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Purchase Order" sap:quickinfo="Purchase Order ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:text="to_Supplier/CompanyName" sap:label="Supplier" sap:quickinfo="Supplier ID" sap:value-list="standard"/>
+                <Property Name="LastChangedDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Last Changed" sap:quickinfo="Last Changed (Date)"/>
+                <Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="dimension" sap:unit="Currency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:text="to_Currency/Currency_Text" sap:label="Currency" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="EarliestDeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Earliest Delivery Date"/>
+                <Property Name="LatestDeliveryDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:label="Latest Delivery Date"/>
+                <Property Name="NumberOfItems" Type="Edm.Int32" sap:aggregation-role="dimension" sap:label="Number of Items"/>
+                <Property Name="Requestor" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Employee" sap:quickinfo="Employee ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DeliveryAddress" Type="Edm.String" MaxLength="176" sap:aggregation-role="dimension" sap:label="Delivery Address" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ConvertedCurrency" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension"/>
+                <Property Name="ConvertedGrossAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="measure" sap:filterable="false"/>
+                <NavigationProperty Name="to_Analytics" Relationship="ZYJ_I_PUROD_01_CDS.assoc_3470957A359CC480036BB2717514F2F7" FromRole="FromRole_assoc_3470957A359CC480036BB2717514F2F7" ToRole="ToRole_assoc_3470957A359CC480036BB2717514F2F7"/>
+                <NavigationProperty Name="to_Currency" Relationship="ZYJ_I_PUROD_01_CDS.assoc_E5447A49C8A83911C742A30CB16B87FA" FromRole="FromRole_assoc_E5447A49C8A83911C742A30CB16B87FA" ToRole="ToRole_assoc_E5447A49C8A83911C742A30CB16B87FA"/>
+                <NavigationProperty Name="to_Employee" Relationship="ZYJ_I_PUROD_01_CDS.assoc_0FD192AB7577C1414986D0378B52CAD4" FromRole="FromRole_assoc_0FD192AB7577C1414986D0378B52CAD4" ToRole="ToRole_assoc_0FD192AB7577C1414986D0378B52CAD4"/>
+                <NavigationProperty Name="to_Items" Relationship="ZYJ_I_PUROD_01_CDS.assoc_BD019E55A8D5165793993E15D3F64CC7" FromRole="FromRole_assoc_BD019E55A8D5165793993E15D3F64CC7" ToRole="ToRole_assoc_BD019E55A8D5165793993E15D3F64CC7"/>
+                <NavigationProperty Name="to_POAPV_PurOrdItem" Relationship="ZYJ_I_PUROD_01_CDS.assoc_E3E2A12675D904D89220D704A1048358" FromRole="FromRole_assoc_E3E2A12675D904D89220D704A1048358" ToRole="ToRole_assoc_E3E2A12675D904D89220D704A1048358"/>
+                <NavigationProperty Name="to_PurOrdItem" Relationship="ZYJ_I_PUROD_01_CDS.assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD" FromRole="FromRole_assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD" ToRole="ToRole_assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD"/>
+                <NavigationProperty Name="to_Requestor" Relationship="ZYJ_I_PUROD_01_CDS.assoc_EEDAC4CAFEF23553EF1DE5B294470EBF" FromRole="FromRole_assoc_EEDAC4CAFEF23553EF1DE5B294470EBF" ToRole="ToRole_assoc_EEDAC4CAFEF23553EF1DE5B294470EBF"/>
+                <NavigationProperty Name="to_Supplier" Relationship="ZYJ_I_PUROD_01_CDS.assoc_5DDAF2A729AFB1292A206601515487B0" FromRole="FromRole_assoc_5DDAF2A729AFB1292A206601515487B0" ToRole="ToRole_assoc_5DDAF2A729AFB1292A206601515487B0"/>
+            </EntityType>
+            <Association Name="assoc_95890A28CFBE450FDB51C6C427A12F51" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" Multiplicity="1" Role="FromRole_assoc_95890A28CFBE450FDB51C6C427A12F51"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_95890A28CFBE450FDB51C6C427A12F51"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_95890A28CFBE450FDB51C6C427A12F51">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_95890A28CFBE450FDB51C6C427A12F51">
+                        <PropertyRef Name="Currency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_F4AD7F924555664C2BDBE98124BC5935" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" Multiplicity="1" Role="FromRole_assoc_F4AD7F924555664C2BDBE98124BC5935"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_ProductType" Multiplicity="0..1" Role="ToRole_assoc_F4AD7F924555664C2BDBE98124BC5935"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_F4AD7F924555664C2BDBE98124BC5935">
+                        <PropertyRef Name="Product"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_F4AD7F924555664C2BDBE98124BC5935">
+                        <PropertyRef Name="Product"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_CE1CD91D545272C31AD273518CE58D6D" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" Multiplicity="1" Role="FromRole_assoc_CE1CD91D545272C31AD273518CE58D6D"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_I_QuantityUnitType" Multiplicity="0..1" Role="ToRole_assoc_CE1CD91D545272C31AD273518CE58D6D"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_CE1CD91D545272C31AD273518CE58D6D">
+                        <PropertyRef Name="UnitOfMeasure"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_CE1CD91D545272C31AD273518CE58D6D">
+                        <PropertyRef Name="QuantityUnit"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_9288B7E20CA386A8927F13A150496C3F" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_9288B7E20CA386A8927F13A150496C3F"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPM_I_CompanyType" Multiplicity="0..1" Role="ToRole_assoc_9288B7E20CA386A8927F13A150496C3F"/>
+            </Association>
+            <Association Name="assoc_5689BF800D05B4C270E81DB9929A63AF" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_I_EmployeeType" Multiplicity="1" Role="FromRole_assoc_5689BF800D05B4C270E81DB9929A63AF"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPM_I_GenderCodeType" Multiplicity="0..1" Role="ToRole_assoc_5689BF800D05B4C270E81DB9929A63AF"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_5689BF800D05B4C270E81DB9929A63AF">
+                        <PropertyRef Name="GenderCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_5689BF800D05B4C270E81DB9929A63AF">
+                        <PropertyRef Name="GenderCode"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_876979E3A61342B6DD9085995885E05D" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPM_I_CompanyType" Multiplicity="1" Role="FromRole_assoc_876979E3A61342B6DD9085995885E05D"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPM_I_AddressType" Multiplicity="0..1" Role="ToRole_assoc_876979E3A61342B6DD9085995885E05D"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_876979E3A61342B6DD9085995885E05D">
+                        <PropertyRef Name="AddressUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_876979E3A61342B6DD9085995885E05D">
+                        <PropertyRef Name="AddressUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_8A0552FC7675047BC96B8232CE0B37C2" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPM_I_CompanyType" Multiplicity="1" Role="FromRole_assoc_8A0552FC7675047BC96B8232CE0B37C2"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPM_I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_8A0552FC7675047BC96B8232CE0B37C2"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_8A0552FC7675047BC96B8232CE0B37C2">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_8A0552FC7675047BC96B8232CE0B37C2">
+                        <PropertyRef Name="CompanyCurrency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_FD2122934519816E54F0EE4C9143AEB6" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType" Multiplicity="1" Role="FromRole_assoc_FD2122934519816E54F0EE4C9143AEB6"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_FD2122934519816E54F0EE4C9143AEB6"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_FD2122934519816E54F0EE4C9143AEB6">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_FD2122934519816E54F0EE4C9143AEB6">
+                        <PropertyRef Name="Currency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_E5FDB1F6C1B96644972C0CC518A12B63" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType" Multiplicity="1" Role="FromRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_ProductType" Multiplicity="0..1" Role="ToRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63">
+                        <PropertyRef Name="Product"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63">
+                        <PropertyRef Name="Product"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_650E5FD8983BD61C3504277AD384A090" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType" Multiplicity="1" Role="FromRole_assoc_650E5FD8983BD61C3504277AD384A090"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_I_QuantityUnitType" Multiplicity="0..1" Role="ToRole_assoc_650E5FD8983BD61C3504277AD384A090"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_650E5FD8983BD61C3504277AD384A090">
+                        <PropertyRef Name="UnitOfMeasure"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_650E5FD8983BD61C3504277AD384A090">
+                        <PropertyRef Name="QuantityUnit"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_3470957A359CC480036BB2717514F2F7" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_3470957A359CC480036BB2717514F2F7"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType" Multiplicity="*" Role="ToRole_assoc_3470957A359CC480036BB2717514F2F7"/>
+            </Association>
+            <Association Name="assoc_E5447A49C8A83911C742A30CB16B87FA" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_E5447A49C8A83911C742A30CB16B87FA"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_E5447A49C8A83911C742A30CB16B87FA"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_E5447A49C8A83911C742A30CB16B87FA">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_E5447A49C8A83911C742A30CB16B87FA">
+                        <PropertyRef Name="Currency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_0FD192AB7577C1414986D0378B52CAD4" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_0FD192AB7577C1414986D0378B52CAD4"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_I_EmployeeType" Multiplicity="*" Role="ToRole_assoc_0FD192AB7577C1414986D0378B52CAD4"/>
+            </Association>
+            <Association Name="assoc_BD019E55A8D5165793993E15D3F64CC7" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_BD019E55A8D5165793993E15D3F64CC7"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" Multiplicity="*" Role="ToRole_assoc_BD019E55A8D5165793993E15D3F64CC7"/>
+            </Association>
+            <Association Name="assoc_E3E2A12675D904D89220D704A1048358" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_E3E2A12675D904D89220D704A1048358"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" Multiplicity="*" Role="ToRole_assoc_E3E2A12675D904D89220D704A1048358"/>
+            </Association>
+            <Association Name="assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType" Multiplicity="*" Role="ToRole_assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD"/>
+            </Association>
+            <Association Name="assoc_EEDAC4CAFEF23553EF1DE5B294470EBF" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_EEDAC4CAFEF23553EF1DE5B294470EBF"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_EmployeeType" Multiplicity="0..1" Role="ToRole_assoc_EEDAC4CAFEF23553EF1DE5B294470EBF"/>
+            </Association>
+            <Association Name="assoc_5DDAF2A729AFB1292A206601515487B0" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" Multiplicity="1" Role="FromRole_assoc_5DDAF2A729AFB1292A206601515487B0"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_SupplierType" Multiplicity="0..1" Role="ToRole_assoc_5DDAF2A729AFB1292A206601515487B0"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_5DDAF2A729AFB1292A206601515487B0">
+                        <PropertyRef Name="Supplier"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_5DDAF2A729AFB1292A206601515487B0">
+                        <PropertyRef Name="Supplier"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_30AF82CF9E5094F7C2837BCB7F0E0041" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_ProductType" Multiplicity="1" Role="FromRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041">
+                        <PropertyRef Name="Currency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType" Multiplicity="1" Role="FromRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_EmployeeType" Multiplicity="0..1" Role="ToRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E">
+                        <PropertyRef Name="Employee"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E">
+                        <PropertyRef Name="Requestor"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_CA89C968979FCBF2EBA72B84134060A5" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType" Multiplicity="1" Role="FromRole_assoc_CA89C968979FCBF2EBA72B84134060A5"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_SupplierType" Multiplicity="0..1" Role="ToRole_assoc_CA89C968979FCBF2EBA72B84134060A5"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_CA89C968979FCBF2EBA72B84134060A5">
+                        <PropertyRef Name="Supplier"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_CA89C968979FCBF2EBA72B84134060A5">
+                        <PropertyRef Name="Supplier"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_0CA726A046D0955F87B8E71A1A25DB53" sap:content-version="1">
+                <End Type="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType" Multiplicity="1" Role="FromRole_assoc_0CA726A046D0955F87B8E71A1A25DB53"/>
+                <End Type="ZYJ_I_PUROD_01_CDS.I_CurrencyType" Multiplicity="0..1" Role="ToRole_assoc_0CA726A046D0955F87B8E71A1A25DB53"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_0CA726A046D0955F87B8E71A1A25DB53">
+                        <PropertyRef Name="Currency"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_0CA726A046D0955F87B8E71A1A25DB53">
+                        <PropertyRef Name="Currency"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZYJ_I_PUROD_01_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_Currency" EntityType="ZYJ_I_PUROD_01_CDS.I_CurrencyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_POAPV_Analytics" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_POAPV_Employee" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_EmployeeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_POAPV_Product" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_ProductType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_POAPV_PurOrdItem" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_POAPV_Supplier" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_SupplierType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_I_Employee" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_I_EmployeeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_I_QuantityUnit" EntityType="ZYJ_I_PUROD_01_CDS.SEPMRA_I_QuantityUnitType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Address" EntityType="ZYJ_I_PUROD_01_CDS.SEPM_I_AddressType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Company" EntityType="ZYJ_I_PUROD_01_CDS.SEPM_I_CompanyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_Currency" EntityType="ZYJ_I_PUROD_01_CDS.SEPM_I_CurrencyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPM_I_GenderCode" EntityType="ZYJ_I_PUROD_01_CDS.SEPM_I_GenderCodeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZHMHG_I_PurOrdItem" EntityType="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zyj_i_purOd_01" EntityType="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_5DDAF2A729AFB1292A206601515487B0" Association="ZYJ_I_PUROD_01_CDS.assoc_5DDAF2A729AFB1292A206601515487B0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_5DDAF2A729AFB1292A206601515487B0"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Supplier" Role="ToRole_assoc_5DDAF2A729AFB1292A206601515487B0"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_30AF82CF9E5094F7C2837BCB7F0E0041" Association="ZYJ_I_PUROD_01_CDS.assoc_30AF82CF9E5094F7C2837BCB7F0E0041" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_Product" Role="FromRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041"/>
+                    <End EntitySet="I_Currency" Role="ToRole_assoc_30AF82CF9E5094F7C2837BCB7F0E0041"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_650E5FD8983BD61C3504277AD384A090" Association="ZYJ_I_PUROD_01_CDS.assoc_650E5FD8983BD61C3504277AD384A090" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZHMHG_I_PurOrdItem" Role="FromRole_assoc_650E5FD8983BD61C3504277AD384A090"/>
+                    <End EntitySet="SEPMRA_I_QuantityUnit" Role="ToRole_assoc_650E5FD8983BD61C3504277AD384A090"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_876979E3A61342B6DD9085995885E05D" Association="ZYJ_I_PUROD_01_CDS.assoc_876979E3A61342B6DD9085995885E05D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Company" Role="FromRole_assoc_876979E3A61342B6DD9085995885E05D"/>
+                    <End EntitySet="SEPM_I_Address" Role="ToRole_assoc_876979E3A61342B6DD9085995885E05D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_0FD192AB7577C1414986D0378B52CAD4" Association="ZYJ_I_PUROD_01_CDS.assoc_0FD192AB7577C1414986D0378B52CAD4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_0FD192AB7577C1414986D0378B52CAD4"/>
+                    <End EntitySet="SEPMRA_I_Employee" Role="ToRole_assoc_0FD192AB7577C1414986D0378B52CAD4"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_BD019E55A8D5165793993E15D3F64CC7" Association="ZYJ_I_PUROD_01_CDS.assoc_BD019E55A8D5165793993E15D3F64CC7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_BD019E55A8D5165793993E15D3F64CC7"/>
+                    <End EntitySet="SEPMRA_C_POAPV_PurOrdItem" Role="ToRole_assoc_BD019E55A8D5165793993E15D3F64CC7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_CE1CD91D545272C31AD273518CE58D6D" Association="ZYJ_I_PUROD_01_CDS.assoc_CE1CD91D545272C31AD273518CE58D6D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_PurOrdItem" Role="FromRole_assoc_CE1CD91D545272C31AD273518CE58D6D"/>
+                    <End EntitySet="SEPMRA_I_QuantityUnit" Role="ToRole_assoc_CE1CD91D545272C31AD273518CE58D6D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3470957A359CC480036BB2717514F2F7" Association="ZYJ_I_PUROD_01_CDS.assoc_3470957A359CC480036BB2717514F2F7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_3470957A359CC480036BB2717514F2F7"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Analytics" Role="ToRole_assoc_3470957A359CC480036BB2717514F2F7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_5689BF800D05B4C270E81DB9929A63AF" Association="ZYJ_I_PUROD_01_CDS.assoc_5689BF800D05B4C270E81DB9929A63AF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_I_Employee" Role="FromRole_assoc_5689BF800D05B4C270E81DB9929A63AF"/>
+                    <End EntitySet="SEPM_I_GenderCode" Role="ToRole_assoc_5689BF800D05B4C270E81DB9929A63AF"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_EEDAC4CAFEF23553EF1DE5B294470EBF" Association="ZYJ_I_PUROD_01_CDS.assoc_EEDAC4CAFEF23553EF1DE5B294470EBF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_EEDAC4CAFEF23553EF1DE5B294470EBF"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Employee" Role="ToRole_assoc_EEDAC4CAFEF23553EF1DE5B294470EBF"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E5447A49C8A83911C742A30CB16B87FA" Association="ZYJ_I_PUROD_01_CDS.assoc_E5447A49C8A83911C742A30CB16B87FA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_E5447A49C8A83911C742A30CB16B87FA"/>
+                    <End EntitySet="I_Currency" Role="ToRole_assoc_E5447A49C8A83911C742A30CB16B87FA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_CA89C968979FCBF2EBA72B84134060A5" Association="ZYJ_I_PUROD_01_CDS.assoc_CA89C968979FCBF2EBA72B84134060A5" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_Analytics" Role="FromRole_assoc_CA89C968979FCBF2EBA72B84134060A5"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Supplier" Role="ToRole_assoc_CA89C968979FCBF2EBA72B84134060A5"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD" Association="ZYJ_I_PUROD_01_CDS.assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD"/>
+                    <End EntitySet="ZHMHG_I_PurOrdItem" Role="ToRole_assoc_26DF4F4CC623A6EE84B7EC20FCBEE8DD"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E5FDB1F6C1B96644972C0CC518A12B63" Association="ZYJ_I_PUROD_01_CDS.assoc_E5FDB1F6C1B96644972C0CC518A12B63" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZHMHG_I_PurOrdItem" Role="FromRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Product" Role="ToRole_assoc_E5FDB1F6C1B96644972C0CC518A12B63"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E" Association="ZYJ_I_PUROD_01_CDS.assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_Analytics" Role="FromRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Employee" Role="ToRole_assoc_CF70BBF4C81BE4E1731A1ED0DD5F3D8E"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_9288B7E20CA386A8927F13A150496C3F" Association="ZYJ_I_PUROD_01_CDS.assoc_9288B7E20CA386A8927F13A150496C3F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_I_Employee" Role="FromRole_assoc_9288B7E20CA386A8927F13A150496C3F"/>
+                    <End EntitySet="SEPM_I_Company" Role="ToRole_assoc_9288B7E20CA386A8927F13A150496C3F"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_0CA726A046D0955F87B8E71A1A25DB53" Association="ZYJ_I_PUROD_01_CDS.assoc_0CA726A046D0955F87B8E71A1A25DB53" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_Analytics" Role="FromRole_assoc_0CA726A046D0955F87B8E71A1A25DB53"/>
+                    <End EntitySet="I_Currency" Role="ToRole_assoc_0CA726A046D0955F87B8E71A1A25DB53"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8A0552FC7675047BC96B8232CE0B37C2" Association="ZYJ_I_PUROD_01_CDS.assoc_8A0552FC7675047BC96B8232CE0B37C2" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPM_I_Company" Role="FromRole_assoc_8A0552FC7675047BC96B8232CE0B37C2"/>
+                    <End EntitySet="SEPM_I_Currency" Role="ToRole_assoc_8A0552FC7675047BC96B8232CE0B37C2"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_95890A28CFBE450FDB51C6C427A12F51" Association="ZYJ_I_PUROD_01_CDS.assoc_95890A28CFBE450FDB51C6C427A12F51" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_PurOrdItem" Role="FromRole_assoc_95890A28CFBE450FDB51C6C427A12F51"/>
+                    <End EntitySet="I_Currency" Role="ToRole_assoc_95890A28CFBE450FDB51C6C427A12F51"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_F4AD7F924555664C2BDBE98124BC5935" Association="ZYJ_I_PUROD_01_CDS.assoc_F4AD7F924555664C2BDBE98124BC5935" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_POAPV_PurOrdItem" Role="FromRole_assoc_F4AD7F924555664C2BDBE98124BC5935"/>
+                    <End EntitySet="SEPMRA_C_POAPV_Product" Role="ToRole_assoc_F4AD7F924555664C2BDBE98124BC5935"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_FD2122934519816E54F0EE4C9143AEB6" Association="ZYJ_I_PUROD_01_CDS.assoc_FD2122934519816E54F0EE4C9143AEB6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZHMHG_I_PurOrdItem" Role="FromRole_assoc_FD2122934519816E54F0EE4C9143AEB6"/>
+                    <End EntitySet="I_Currency" Role="ToRole_assoc_FD2122934519816E54F0EE4C9143AEB6"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E3E2A12675D904D89220D704A1048358" Association="ZYJ_I_PUROD_01_CDS.assoc_E3E2A12675D904D89220D704A1048358" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_i_purOd_01" Role="FromRole_assoc_E3E2A12675D904D89220D704A1048358"/>
+                    <End EntitySet="SEPMRA_C_POAPV_PurOrdItem" Role="ToRole_assoc_E3E2A12675D904D89220D704A1048358"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType/Supplier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Supplier"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_POAPV_Supplier"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Supplier"/>
+                                    <PropertyValue Property="ValueListProperty" String="Supplier"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType/Requestor" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Employee"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_POAPV_Employee"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Requestor"/>
+                                    <PropertyValue Property="ValueListProperty" String="Employee"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FullName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_AnalyticsType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_ProductType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType/QuantityUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Quantity Unit"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_I_QuantityUnit"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="QuantityUnit"/>
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType/Product" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Product"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_POAPV_Product"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Product"/>
+                                    <PropertyValue Property="ValueListProperty" String="Product"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_I_EmployeeType/GenderCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Gender Code"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_GenderCode"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="GenderCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="GenderCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GenderCode_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPM_I_CompanyType/AddressUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Address"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Address"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AddressUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="AddressUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPM_I_CompanyType/CompanyCurrency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="EPM Demo: Currency"/>
+                        <PropertyValue Property="CollectionPath" String="SEPM_I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCurrency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType/QuantityUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Quantity Unit"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_I_QuantityUnit"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="QuantityUnit"/>
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UnitOfMeasure_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType/Product" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Product"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_POAPV_Product"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Product"/>
+                                    <PropertyValue Property="ValueListProperty" String="Product"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type/Supplier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Supplier"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_POAPV_Supplier"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Supplier"/>
+                                    <PropertyValue Property="ValueListProperty" String="Supplier"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.zyj_i_purOd_01Type/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZYJ_I_PUROD_01_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType/Quantity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZHMHG_I_PurOrdItemType/Quantity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZYJ_I_PUROD_01_CDS_Entities/SEPMRA_C_POAPV_Analytics" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>NumberOfItems</PropertyPath>
+                                <PropertyPath>NetAmount</PropertyPath>
+                                <PropertyPath>EarliestDeliveryDate</PropertyPath>
+                                <PropertyPath>LatestDeliveryDate</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZYJ_I_PUROD_01_CDS_Entities/ZHMHG_I_PurOrdItem" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>NetAmount</PropertyPath>
+                                <PropertyPath>Quantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.ZYJ_I_PUROD_01_CDS_Entities/zyj_i_purOd_01" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>ConvertedGrossAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.SEPMRA_C_POAPV_PurOrdItemType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>PurchaseOrderItem</PropertyPath>
+                        <PropertyPath>PurchaseOrder</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYJ_I_PUROD_01_CDS.I_CurrencyType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.UnitSpecificScale" Path="Decimals"/>
+            </Annotations>
+            <atom:link rel="self" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZYJ_I_PUROD_01_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZYJ_I_PUROD_01_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
