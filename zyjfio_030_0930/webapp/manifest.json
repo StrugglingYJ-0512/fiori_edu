@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.readians.yj.zyjfio0270909",
+        "id": "com.readians.yj.zyjfio0300930",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -14,22 +14,22 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "/sap/opu/odata/sap/ZGW_YJ001_SRV/",
+                "uri": "/sap/opu/odata/sap/ZGW_YJ003_SRV/",
                 "type": "OData",
                 "settings": {
                     "annotations": [
-                        "ZGW_YJ001_ANNO_MDL",
+                        "ZGW_YJ003_ANNO_MDL",
                         "annotation"
                     ],
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
                 }
             },
-            "ZGW_YJ001_ANNO_MDL": {
-                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZGW_YJ001_ANNO_MDL',Version='0001')/$value/",
+            "ZGW_YJ003_ANNO_MDL": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZGW_YJ003_ANNO_MDL',Version='0001')/$value/",
                 "type": "ODataAnnotation",
                 "settings": {
-                    "localUri": "localService/ZGW_YJ001_ANNO_MDL.xml"
+                    "localUri": "localService/ZGW_YJ003_ANNO_MDL.xml"
                 }
             },
             "annotation": {
@@ -72,7 +72,7 @@
             "css": []
         },
         "dependencies": {
-            "minUI5Version": "1.94.0",
+            "minUI5Version": "1.94.1",
             "libs": {
                 "sap.ovp": {}
             },
@@ -110,7 +110,7 @@
     },
     "sap.ovp": {
         "globalFilterModel": "mainService",
-        "globalFilterEntityType": "zyj_i_filter_01Type",
+        "globalFilterEntityType": "zyj_C_FILTER_02Type",
         "containerLayout": "resizable",
         "enableLiveFilter": true,
         "considerAnalyticalParameters": false,
@@ -120,7 +120,7 @@
                 "template": "sap.ovp.cards.table",
                 "settings": {
                     "title": "SalesOrderHeader List",
-                    "entitySet": "zyj_i_filter_02",
+                    "entitySet": "Zyj_C_ALP_SO_02",
                     "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#qua_table_01",
                     "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#qua_identi_01"
                 }
@@ -130,7 +130,7 @@
                 "template": "sap.ovp.cards.list",
                 "settings": {
                     "title": "SalesOrder ListCard",
-                    "entitySet": "zyj_i_filter_02",
+                    "entitySet": "Zyj_C_ALP_SO_02",
                     "listType": "condensed",
                     "listFlavor": "standard",
                     "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#qua_table_01"
@@ -141,7 +141,7 @@
                 "template": "sap.ovp.cards.charts.analytical",
                 "settings": {
                     "title": "SalesOrder Item Chart",
-                    "entitySet": "zyj_i_filter_03",
+                    "entitySet": "zyj_C_ALP_SOI_02",
                     "subTitle": "Chart",
                     "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#qua_chart_01"
                 }
@@ -151,7 +151,7 @@
                 "template": "sap.ovp.cards.stack",
                 "settings": {
                     "title": "Saeles Order Stack Card",
-                    "entitySet": "zyj_i_filter_03"
+                    "entitySet": "zyj_C_ALP_SOI_02"
                 }
             },
             "card_link_01": {

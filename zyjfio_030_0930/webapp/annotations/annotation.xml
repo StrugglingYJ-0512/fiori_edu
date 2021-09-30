@@ -2,12 +2,12 @@
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/sap/ZGW_YJ001_SRV/$metadata">
-        <edmx:Include Namespace="ZGW_YJ001_SRV" Alias="SAP"/>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZGW_YJ003_SRV/$metadata">
+        <edmx:Include Namespace="ZGW_YJ003_SRV" Alias="SAP"/>
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.readians.yj">
-            <Annotations Target="SAP.zyj_i_filter_01Type">
+            <Annotations Target="ZGW_YJ003_SRV.zyj_C_FILTER_02Type">
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>SalesOrder</PropertyPath>
@@ -15,8 +15,7 @@
                 </Annotation>
             </Annotations>
 
-
-            <Annotations Target="SAP.zyj_i_filter_02Type">
+            <Annotations Target="SAP.Zyj_C_ALP_SO_02Type">
                 <Annotation Term="UI.LineItem" Qualifier="qua_table_01">
                     <Collection>
                         <Record Type="UI.DataField">
@@ -52,7 +51,7 @@
                 </Annotation>
             </Annotations>
             <!-- chart -->
-            <Annotations Target="SAP.zyj_i_filter_03Type">
+            <Annotations Target="SAP.zyj_C_ALP_SOI_02Type">
                 <!-- Stack 카드의 header -->
                 <Annotation Term="UI.HeaderInfo" >
                     <Record Type="UI.HeaderInfoType">

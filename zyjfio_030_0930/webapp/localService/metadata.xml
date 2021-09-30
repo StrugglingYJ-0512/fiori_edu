@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://linux.grcplace.com:8020/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZGW_YJ003_SRV" xml:lang="ko" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SEPMRA_C_ALP_CustomerType" sap:label="Customer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="CompanyName" sap:label="Customer" sap:quickinfo="EPM: Customer ID"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:label="Fax" sap:quickinfo="EPM: Fax Number" sap:semantics="tel"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+                <Property Name="URL" Type="Edm.String" sap:label="Web Site" sap:quickinfo="EPM: Web Address"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_ALP_CustomerVHType" sap:label="Customer" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SoldToParty"/>
+                </Key>
+                <Property Name="SoldToParty" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="CompanyName" sap:label="Customer" sap:quickinfo="EPM: Customer ID"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:quickinfo="EPM: Company Name"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country" sap:quickinfo="EPM: Country Code"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_ALP_ProductType" sap:label="Product" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Product"/>
+                </Key>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="ProductName" sap:label="Product" sap:quickinfo="Product ID"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="255" sap:attribute-for="Product" sap:label="Name" sap:quickinfo="Product Name"/>
+                <Property Name="ProductDescription" Type="Edm.String" MaxLength="255" sap:attribute-for="Product" sap:label="Description" sap:quickinfo="Product Description"/>
+                <Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="Currency" sap:label="Price per Unit" sap:quickinfo="Fiori Reference Apps: Product Unit Price"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:text="Currency_T" sap:label="Currency" sap:semantics="currency-code"/>
+                <Property Name="Currency_T" Type="Edm.String" MaxLength="40" sap:attribute-for="Currency" sap:label="내역"/>
+                <Property Name="AverageRatingValue" Type="Edm.Decimal" Precision="4" Scale="2" sap:label="Average Rating" sap:quickinfo="EPM: Review Rating Average"/>
+                <Property Name="Depth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimensionUnit" sap:label="Depth" sap:quickinfo="EPM: Depth"/>
+                <Property Name="Width" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimensionUnit" sap:label="Width" sap:quickinfo="EPM: Width"/>
+                <Property Name="Height" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimensionUnit" sap:label="Height" sap:quickinfo="EPM: Height"/>
+                <Property Name="DimensionUnit" Type="Edm.String" MaxLength="3" sap:text="DimensionUnit_T" sap:label="Dimension Unit" sap:quickinfo="EPM: Dimension Unit" sap:semantics="unit-of-measure"/>
+                <Property Name="DimensionUnit_T" Type="Edm.String" MaxLength="10" sap:attribute-for="DimensionUnit" sap:label="단위 텍스트" sap:quickinfo="단위 텍스트(최대 10자)"/>
+                <Property Name="ProductCategory" Type="Edm.String" MaxLength="40" sap:label="Category" sap:quickinfo="Product Sub-Category"/>
+                <Property Name="MainProductCategory" Type="Edm.String" MaxLength="40" sap:label="Main Category" sap:value-list="fixed-values"/>
+                <Property Name="ProductValueAddedTax" Type="Edm.Byte" sap:text="ProductValueAddedTax_T" sap:label="Tax Tariff Code" sap:quickinfo="EPM: Product Tax Tariff Code"/>
+                <Property Name="ProductValueAddedTax_T" Type="Edm.String" MaxLength="60" sap:attribute-for="ProductValueAddedTax" sap:label="내역" sap:quickinfo="고정 값 내역"/>
+                <Property Name="ProductPictureURL" Type="Edm.String" MaxLength="255" sap:label="Image" sap:quickinfo="Image of the product"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Supplier" sap:quickinfo="Supplier ID"/>
+                <Property Name="Weight" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="WeightUnit" sap:label="Weight" sap:quickinfo="EPM: Weight Measure"/>
+                <Property Name="WeightUnit" Type="Edm.String" MaxLength="3" sap:text="WeightUnit_T" sap:label="Weight Unit" sap:semantics="unit-of-measure"/>
+                <Property Name="WeightUnit_T" Type="Edm.String" MaxLength="10" sap:attribute-for="WeightUnit" sap:label="단위 텍스트" sap:quickinfo="단위 텍스트(최대 10자)"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_ALP_ProductVHType" sap:label="Product" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Product"/>
+                </Key>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="10" sap:text="ProductName" sap:label="Product" sap:quickinfo="Product ID"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="255" sap:attribute-for="Product" sap:label="Name" sap:quickinfo="Product Name"/>
+                <Property Name="ProductDescription" Type="Edm.String" MaxLength="255" sap:attribute-for="Product" sap:label="Description" sap:quickinfo="Product Description"/>
+                <Property Name="ProductCategory" Type="Edm.String" MaxLength="40" sap:label="Category" sap:quickinfo="Product Sub-Category"/>
+                <Property Name="MainProductCategory" Type="Edm.String" MaxLength="40" sap:label="Main Category"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Supplier" sap:quickinfo="Supplier ID"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_ALP_SalesOrderType" sap:label="Sales Order" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrder"/>
+                </Key>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="to_Customer/CompanyName" sap:label="Customer" sap:quickinfo="EPM: Customer ID" sap:value-list="standard"/>
+                <Property Name="NetAmountInTransactionCurrency" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="TransactionCurrency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5" sap:text="TransactionCurrency_T" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+                <Property Name="TransactionCurrency_T" Type="Edm.String" MaxLength="15" sap:attribute-for="TransactionCurrency" sap:label="내역"/>
+                <Property Name="SalesOrderOverallStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:text="SalesOrderOverallStatus_T" sap:label="Overall Status" sap:quickinfo="EPM: Sales Order Overall Status"/>
+                <Property Name="SalesOrderOverallStatus_T" Type="Edm.String" MaxLength="60" sap:attribute-for="SalesOrderOverallStatus" sap:label="내역" sap:quickinfo="고정 값 내역"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created At" sap:quickinfo="EPM: Created At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="EPM: Created By User" sap:value-list="standard"/>
+                <Property Name="LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Changed At" sap:quickinfo="EPM: Changed At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Last Changed By" sap:quickinfo="EPM: Last Changed By User" sap:value-list="standard"/>
+                <NavigationProperty Name="to_CreatedByUser" Relationship="ZGW_YJ003_SRV.assoc_2147FD6D4D5D8F564F40B05369AD26BC" FromRole="FromRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC" ToRole="ToRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC"/>
+                <NavigationProperty Name="to_Customer" Relationship="ZGW_YJ003_SRV.assoc_99F50847A843041C6EACDE98C9A6690C" FromRole="FromRole_assoc_99F50847A843041C6EACDE98C9A6690C" ToRole="ToRole_assoc_99F50847A843041C6EACDE98C9A6690C"/>
+                <NavigationProperty Name="to_Items" Relationship="ZGW_YJ003_SRV.assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" FromRole="FromRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" ToRole="ToRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5"/>
+                <NavigationProperty Name="to_LastChangedByUser" Relationship="ZGW_YJ003_SRV.assoc_D6B8C833B81F95BE4482A9709964DFEF" FromRole="FromRole_assoc_D6B8C833B81F95BE4482A9709964DFEF" ToRole="ToRole_assoc_D6B8C833B81F95BE4482A9709964DFEF"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_ALP_SalesOrderItemType" sap:label="Sales Order Item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrder"/>
+                    <PropertyRef Name="SalesOrderItem"/>
+                </Key>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="SalesOrderItem" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Item Position" sap:quickinfo="EPM: Sales Order Item Position"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="10" sap:text="to_Product/ProductName" sap:label="Product" sap:quickinfo="Product ID" sap:value-list="standard"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="QuantityUnit" sap:label="Quantity" sap:quickinfo="EPM: Quantity"/>
+                <Property Name="QuantityUnit" Type="Edm.String" MaxLength="3" sap:text="QuantityUnit_T" sap:label="Unit of Measure" sap:quickinfo="EPM: Quantity Unit" sap:semantics="unit-of-measure"/>
+                <Property Name="QuantityUnit_T" Type="Edm.String" MaxLength="10" sap:attribute-for="QuantityUnit" sap:label="단위 텍스트" sap:quickinfo="단위 텍스트(최대 10자)"/>
+                <Property Name="NetAmountInTransactionCurrency" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="TransactionCurrency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5" sap:text="TransactionCurrency_T" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+                <Property Name="TransactionCurrency_T" Type="Edm.String" MaxLength="15" sap:attribute-for="TransactionCurrency" sap:label="내역"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Delivery Date"/>
+                <NavigationProperty Name="to_SalesOrder" Relationship="ZGW_YJ003_SRV.assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" FromRole="ToRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" ToRole="FromRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5"/>
+                <NavigationProperty Name="to_Product" Relationship="ZGW_YJ003_SRV.assoc_E04DBC188394E718489B8003D3546C60" FromRole="FromRole_assoc_E04DBC188394E718489B8003D3546C60" ToRole="ToRole_assoc_E04DBC188394E718489B8003D3546C60"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_C_ALP_UserType" sap:label="User" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UserId"/>
+                </Key>
+                <Property Name="UserId" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="User ID"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="Email" sap:quickinfo="EPM: E-Mail Address" sap:semantics="email"/>
+                <Property Name="PictureURL" Type="Edm.String" MaxLength="255" sap:label="Pic URI" sap:quickinfo="EPM: URL of Product Image"/>
+                <Property Name="Initials" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Initials" sap:quickinfo="EPM: Initials"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:label="First Name" sap:quickinfo="EPM: First Name"/>
+                <Property Name="MiddleName" Type="Edm.String" MaxLength="40" sap:label="Middle Name" sap:quickinfo="EPM: Middle Name"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:label="Last Name" sap:quickinfo="EPM: Last Name"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="81" sap:label="Name" sap:quickinfo="Full Name"/>
+                <Property Name="MobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Mobile Phone Number" sap:quickinfo="EPM: Mobile Phone Number" sap:semantics="tel"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone" sap:quickinfo="EPM: Phone Number" sap:semantics="tel"/>
+            </EntityType>
+            <EntityType Name="SEPMRA_I_ProductMainCategoryType" sap:label="Category" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MainProductCategory"/>
+                </Key>
+                <Property Name="MainProductCategory" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Category"/>
+            </EntityType>
+            <EntityType Name="zyj_C_ALP_SOI_02Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrder"/>
+                </Key>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SalesOrderItem" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Item Position" sap:quickinfo="EPM: Sales Order Item Position"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="10" sap:label="Product" sap:quickinfo="Product ID" sap:value-list="standard"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="QuantityUnit" sap:label="Quantity" sap:quickinfo="EPM: Quantity"/>
+                <Property Name="QuantityUnit" Type="Edm.String" MaxLength="3" sap:text="QuantityUnit_T" sap:label="Unit of Measure" sap:quickinfo="EPM: Quantity Unit" sap:semantics="unit-of-measure"/>
+                <Property Name="QuantityUnit_T" Type="Edm.String" MaxLength="10" sap:attribute-for="QuantityUnit" sap:label="단위 텍스트" sap:quickinfo="단위 텍스트(최대 10자)"/>
+                <Property Name="NetAmountInTransactionCurrency" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="TransactionCurrency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5" sap:text="TransactionCurrency_T" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+                <Property Name="TransactionCurrency_T" Type="Edm.String" MaxLength="15" sap:attribute-for="TransactionCurrency" sap:label="내역"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Delivery Date"/>
+            </EntityType>
+            <EntityType Name="Zyj_C_ALP_SO_02Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrder"/>
+                </Key>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Customer" sap:quickinfo="EPM: Customer ID" sap:value-list="standard"/>
+                <Property Name="NetAmountInTransactionCurrency" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="TransactionCurrency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5" sap:text="TransactionCurrency_T" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+                <Property Name="TransactionCurrency_T" Type="Edm.String" MaxLength="15" sap:attribute-for="TransactionCurrency" sap:label="내역"/>
+                <Property Name="SalesOrderOverallStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:text="SalesOrderOverallStatus_T" sap:label="Overall Status" sap:quickinfo="EPM: Sales Order Overall Status"/>
+                <Property Name="SalesOrderOverallStatus_T" Type="Edm.String" MaxLength="60" sap:attribute-for="SalesOrderOverallStatus" sap:label="내역" sap:quickinfo="고정 값 내역"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created At" sap:quickinfo="EPM: Created At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="EPM: Created By User"/>
+                <Property Name="LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Changed At" sap:quickinfo="EPM: Changed At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Last Changed By" sap:quickinfo="EPM: Last Changed By User"/>
+            </EntityType>
+            <EntityType Name="zyj_C_FILTER_02Type" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrder"/>
+                </Key>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales Order ID" sap:quickinfo="EPM: Sales Order Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="to_Customer/CompanyName" sap:label="Customer" sap:quickinfo="EPM: Customer ID" sap:value-list="standard"/>
+                <Property Name="NetAmountInTransactionCurrency" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="TransactionCurrency" sap:label="Net Amount" sap:quickinfo="EPM: Total Net Amount"/>
+                <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5" sap:text="TransactionCurrency_T" sap:label="Currency Code" sap:quickinfo="EPM: Currency Code" sap:semantics="currency-code"/>
+                <Property Name="TransactionCurrency_T" Type="Edm.String" MaxLength="15" sap:attribute-for="TransactionCurrency" sap:label="내역"/>
+                <Property Name="SalesOrderOverallStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:text="SalesOrderOverallStatus_T" sap:label="Overall Status" sap:quickinfo="EPM: Sales Order Overall Status"/>
+                <Property Name="SalesOrderOverallStatus_T" Type="Edm.String" MaxLength="60" sap:attribute-for="SalesOrderOverallStatus" sap:label="내역" sap:quickinfo="고정 값 내역"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Created At" sap:quickinfo="EPM: Created At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="EPM: Created By User" sap:value-list="standard"/>
+                <Property Name="LastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Changed At" sap:quickinfo="EPM: Changed At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Last Changed By" sap:quickinfo="EPM: Last Changed By User" sap:value-list="standard"/>
+                <NavigationProperty Name="to_CreatedByUser" Relationship="ZGW_YJ003_SRV.assoc_C9FBA0F8D914E9BA7F8A726E258630EE" FromRole="FromRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE" ToRole="ToRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE"/>
+                <NavigationProperty Name="to_Customer" Relationship="ZGW_YJ003_SRV.assoc_A57CBCCC4C6A34A09484834E952377C3" FromRole="FromRole_assoc_A57CBCCC4C6A34A09484834E952377C3" ToRole="ToRole_assoc_A57CBCCC4C6A34A09484834E952377C3"/>
+                <NavigationProperty Name="to_Items" Relationship="ZGW_YJ003_SRV.assoc_ABABDB4117F50430C7284CFF6138A35C" FromRole="FromRole_assoc_ABABDB4117F50430C7284CFF6138A35C" ToRole="ToRole_assoc_ABABDB4117F50430C7284CFF6138A35C"/>
+                <NavigationProperty Name="to_LastChangedByUser" Relationship="ZGW_YJ003_SRV.assoc_D32AC25485A61ACB425B8E985F579770" FromRole="FromRole_assoc_D32AC25485A61ACB425B8E985F579770" ToRole="ToRole_assoc_D32AC25485A61ACB425B8E985F579770"/>
+            </EntityType>
+            <Association Name="assoc_99F50847A843041C6EACDE98C9A6690C" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType" Multiplicity="1" Role="FromRole_assoc_99F50847A843041C6EACDE98C9A6690C"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_CustomerType" Multiplicity="0..1" Role="ToRole_assoc_99F50847A843041C6EACDE98C9A6690C"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_99F50847A843041C6EACDE98C9A6690C">
+                        <PropertyRef Name="Customer"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_99F50847A843041C6EACDE98C9A6690C">
+                        <PropertyRef Name="Customer"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType" Multiplicity="1" Role="FromRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderItemType" Multiplicity="*" Role="ToRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5">
+                        <PropertyRef Name="SalesOrder"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5">
+                        <PropertyRef Name="SalesOrder"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_D6B8C833B81F95BE4482A9709964DFEF" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType" Multiplicity="1" Role="FromRole_assoc_D6B8C833B81F95BE4482A9709964DFEF"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_UserType" Multiplicity="0..1" Role="ToRole_assoc_D6B8C833B81F95BE4482A9709964DFEF"/>
+            </Association>
+            <Association Name="assoc_2147FD6D4D5D8F564F40B05369AD26BC" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType" Multiplicity="1" Role="FromRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_UserType" Multiplicity="0..1" Role="ToRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC">
+                        <PropertyRef Name="UserId"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC">
+                        <PropertyRef Name="CreatedByUser"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_E04DBC188394E718489B8003D3546C60" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderItemType" Multiplicity="1" Role="FromRole_assoc_E04DBC188394E718489B8003D3546C60"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_ProductType" Multiplicity="0..1" Role="ToRole_assoc_E04DBC188394E718489B8003D3546C60"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_E04DBC188394E718489B8003D3546C60">
+                        <PropertyRef Name="Product"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_E04DBC188394E718489B8003D3546C60">
+                        <PropertyRef Name="Product"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_C9FBA0F8D914E9BA7F8A726E258630EE" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.zyj_C_FILTER_02Type" Multiplicity="1" Role="FromRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_UserType" Multiplicity="0..1" Role="ToRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE">
+                        <PropertyRef Name="UserId"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE">
+                        <PropertyRef Name="CreatedByUser"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_A57CBCCC4C6A34A09484834E952377C3" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.zyj_C_FILTER_02Type" Multiplicity="1" Role="FromRole_assoc_A57CBCCC4C6A34A09484834E952377C3"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_CustomerType" Multiplicity="0..1" Role="ToRole_assoc_A57CBCCC4C6A34A09484834E952377C3"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_A57CBCCC4C6A34A09484834E952377C3">
+                        <PropertyRef Name="Customer"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_A57CBCCC4C6A34A09484834E952377C3">
+                        <PropertyRef Name="Customer"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_ABABDB4117F50430C7284CFF6138A35C" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.zyj_C_FILTER_02Type" Multiplicity="1" Role="FromRole_assoc_ABABDB4117F50430C7284CFF6138A35C">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderItemType" Multiplicity="*" Role="ToRole_assoc_ABABDB4117F50430C7284CFF6138A35C"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_ABABDB4117F50430C7284CFF6138A35C">
+                        <PropertyRef Name="SalesOrder"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_ABABDB4117F50430C7284CFF6138A35C">
+                        <PropertyRef Name="SalesOrder"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_D32AC25485A61ACB425B8E985F579770" sap:content-version="1">
+                <End Type="ZGW_YJ003_SRV.zyj_C_FILTER_02Type" Multiplicity="1" Role="FromRole_assoc_D32AC25485A61ACB425B8E985F579770"/>
+                <End Type="ZGW_YJ003_SRV.SEPMRA_C_ALP_UserType" Multiplicity="0..1" Role="ToRole_assoc_D32AC25485A61ACB425B8E985F579770"/>
+            </Association>
+            <EntityContainer Name="ZGW_YJ003_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SEPMRA_C_ALP_Customer" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_CustomerType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_ALP_CustomerVH" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_CustomerVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_ALP_Product" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_ProductType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_ALP_ProductVH" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_ProductVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_ALP_SalesOrder" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_ALP_SalesOrderItem" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderItemType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_C_ALP_User" EntityType="ZGW_YJ003_SRV.SEPMRA_C_ALP_UserType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="SEPMRA_I_ProductMainCategory" EntityType="ZGW_YJ003_SRV.SEPMRA_I_ProductMainCategoryType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="zyj_C_ALP_SOI_02" EntityType="ZGW_YJ003_SRV.zyj_C_ALP_SOI_02Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="Zyj_C_ALP_SO_02" EntityType="ZGW_YJ003_SRV.Zyj_C_ALP_SO_02Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zyj_C_FILTER_02" EntityType="ZGW_YJ003_SRV.zyj_C_FILTER_02Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_99F50847A843041C6EACDE98C9A6690C" Association="ZGW_YJ003_SRV.assoc_99F50847A843041C6EACDE98C9A6690C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrder" Role="FromRole_assoc_99F50847A843041C6EACDE98C9A6690C"/>
+                    <End EntitySet="SEPMRA_C_ALP_Customer" Role="ToRole_assoc_99F50847A843041C6EACDE98C9A6690C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_2147FD6D4D5D8F564F40B05369AD26BC" Association="ZGW_YJ003_SRV.assoc_2147FD6D4D5D8F564F40B05369AD26BC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrder" Role="FromRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC"/>
+                    <End EntitySet="SEPMRA_C_ALP_User" Role="ToRole_assoc_2147FD6D4D5D8F564F40B05369AD26BC"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E04DBC188394E718489B8003D3546C60" Association="ZGW_YJ003_SRV.assoc_E04DBC188394E718489B8003D3546C60" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrderItem" Role="FromRole_assoc_E04DBC188394E718489B8003D3546C60"/>
+                    <End EntitySet="SEPMRA_C_ALP_Product" Role="ToRole_assoc_E04DBC188394E718489B8003D3546C60"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_D32AC25485A61ACB425B8E985F579770" Association="ZGW_YJ003_SRV.assoc_D32AC25485A61ACB425B8E985F579770" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_C_FILTER_02" Role="FromRole_assoc_D32AC25485A61ACB425B8E985F579770"/>
+                    <End EntitySet="SEPMRA_C_ALP_User" Role="ToRole_assoc_D32AC25485A61ACB425B8E985F579770"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_A57CBCCC4C6A34A09484834E952377C3" Association="ZGW_YJ003_SRV.assoc_A57CBCCC4C6A34A09484834E952377C3" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_C_FILTER_02" Role="FromRole_assoc_A57CBCCC4C6A34A09484834E952377C3"/>
+                    <End EntitySet="SEPMRA_C_ALP_Customer" Role="ToRole_assoc_A57CBCCC4C6A34A09484834E952377C3"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" Association="ZGW_YJ003_SRV.assoc_4B7F44C128E6D1B4FBEB759C293CF5D5" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrder" Role="FromRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5"/>
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrderItem" Role="ToRole_assoc_4B7F44C128E6D1B4FBEB759C293CF5D5"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_C9FBA0F8D914E9BA7F8A726E258630EE" Association="ZGW_YJ003_SRV.assoc_C9FBA0F8D914E9BA7F8A726E258630EE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_C_FILTER_02" Role="FromRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE"/>
+                    <End EntitySet="SEPMRA_C_ALP_User" Role="ToRole_assoc_C9FBA0F8D914E9BA7F8A726E258630EE"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_D6B8C833B81F95BE4482A9709964DFEF" Association="ZGW_YJ003_SRV.assoc_D6B8C833B81F95BE4482A9709964DFEF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrder" Role="FromRole_assoc_D6B8C833B81F95BE4482A9709964DFEF"/>
+                    <End EntitySet="SEPMRA_C_ALP_User" Role="ToRole_assoc_D6B8C833B81F95BE4482A9709964DFEF"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_ABABDB4117F50430C7284CFF6138A35C" Association="ZGW_YJ003_SRV.assoc_ABABDB4117F50430C7284CFF6138A35C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zyj_C_FILTER_02" Role="FromRole_assoc_ABABDB4117F50430C7284CFF6138A35C"/>
+                    <End EntitySet="SEPMRA_C_ALP_SalesOrderItem" Role="ToRole_assoc_ABABDB4117F50430C7284CFF6138A35C"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_ProductType/MainProductCategory" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Main Category"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_I_ProductMainCategory"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="MainProductCategory"/>
+                                    <PropertyValue Property="ValueListProperty" String="MainProductCategory"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType/Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Customer"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_CustomerVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Customer"/>
+                                    <PropertyValue Property="ValueListProperty" String="SoldToParty"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Country"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType/CreatedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="User"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_User"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CreatedByUser"/>
+                                    <PropertyValue Property="ValueListProperty" String="UserId"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FullName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderType/LastChangedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="User"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_User"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CreatedByUser"/>
+                                    <PropertyValue Property="ValueListProperty" String="UserId"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FullName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderItemType/SalesOrder" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Sales Order"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_SalesOrder"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="SalesOrder"/>
+                                    <PropertyValue Property="ValueListProperty" String="SalesOrder"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="TransactionCurrency_T"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="SalesOrderOverallStatus_T"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_SalesOrderItemType/Product" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Product"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_ProductVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Product"/>
+                                    <PropertyValue Property="ValueListProperty" String="Product"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductDescription"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductCategory"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="MainProductCategory"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Supplier"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.zyj_C_ALP_SOI_02Type/Product" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Product"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_ProductVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Product"/>
+                                    <PropertyValue Property="ValueListProperty" String="Product"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductDescription"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProductCategory"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="MainProductCategory"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Supplier"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.Zyj_C_ALP_SO_02Type/Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Customer"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_CustomerVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Customer"/>
+                                    <PropertyValue Property="ValueListProperty" String="SoldToParty"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Country"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.zyj_C_FILTER_02Type/Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Customer"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_CustomerVH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Customer"/>
+                                    <PropertyValue Property="ValueListProperty" String="SoldToParty"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Country"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.zyj_C_FILTER_02Type/CreatedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="User"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_User"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CreatedByUser"/>
+                                    <PropertyValue Property="ValueListProperty" String="UserId"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FullName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.zyj_C_FILTER_02Type/LastChangedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="User"/>
+                        <PropertyValue Property="CollectionPath" String="SEPMRA_C_ALP_User"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CreatedByUser"/>
+                                    <PropertyValue Property="ValueListProperty" String="UserId"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FullName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.ZGW_YJ003_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.ZGW_YJ003_SRV_Entities/SEPMRA_C_ALP_Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="URL"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>URL</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGW_YJ003_SRV.SEPMRA_C_ALP_ProductVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Product</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZGW_YJ003_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://linux.grcplace.com:8020/sap/opu/odata/sap/ZGW_YJ003_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
